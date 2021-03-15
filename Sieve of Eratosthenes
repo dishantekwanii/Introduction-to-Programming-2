@@ -1,0 +1,144 @@
+/* SELF ASSESSMENT
+   1.    createSequence:
+Did I use the correct method definition?
+Mark out of 5:5
+Comment: Yes, I used the correct method definition.
+Did I create an array of size n (passed as the parameter) and initialise it?
+Mark out of 5: 5
+Comment: Yes, I created an array of size n.
+Did I return the correct item?
+Mark out of 5:5
+Comment: Yes I returned the correct Item.
+   2.    crossOutMultiples
+Did I use the correct method definition?
+Mark out of 5: 5
+Comment: Yes, I used the correc moethod definition.
+Did I ensure the parameters are not null and one of them is a valid index into the array
+Mark out of 2: 2
+Comment: yes, I ensured the parameters are not null and one of them is a valid index into the array.
+Did I loop through the array using the correct multiple?
+Mark out of 5: 5
+Comment: I looped through the array using correct multiple.
+Did I cross out correct items in the array that were not already crossed out?
+Mark out of 3: 3
+Comment: Yes, I crossed out correct items in the array that were not already crossed out.
+   3.    sieve
+Did I have the correct function definition?
+Mark out of 5: 5
+Comment: Yes, I have the correct function definition.
+Did I make calls to other methods?
+Mark out of 5: 5
+Comment: Yes, I made calls to other methods.
+Did I return an array with all non-prime numbers are crossed out?
+Mark out of 2: 2
+Comment: Yes, I returned an array with all non-prime numbers are crossed out.
+   4.    sequenceTostring
+Did I have the correct function definition?
+Mark out of 5: 5
+Comment: I definitely have the correct function definition.
+Did I ensure the parameter to be used is not null?
+Mark out of 3: 3
+Comment: I ensured the parameter to be used is not null.
+Did I Loop through the array updating the String variable with the non-crossed out numbers and the crossed numbers in brackets?
+Mark out of 10: 10
+Comment: I Looped through the array updating the String variable with the non-crossed out numbers and the crossed numbers in brackets
+   5.    nonCrossedOutSubseqToString
+Did I have the correct function definition
+Mark out of 5: 5
+Comment: I definitely have the correct function definition.
+Did I ensure the parameter to be used is not null?
+Mark out of 3: 3
+Comment: Yes, I ensured the parameter to be used is not null.
+Did I loop through the array updating the String variable with just the non-crossed out numbers?
+Mark out of 5: 5
+Comment: I looped through the array updating the String variable with just the non-crossed out numbers.
+   6.    main
+Did I ask  the user for input n and handles input errors?
+Mark out of 5: 0
+Comments: I did not ask the user for input n and handles input errors.
+Did I make calls to other methods (at least one)?
+Mark out of 5: 5
+Comment: I made calls to other methods.
+Did I print the output as shown in the question?
+Mark out of 5: 5
+Comment: I printed the output as shown in the question.
+   7.    Overall
+Is my code indented correctly?
+Mark out of 4: 4
+Comments: My indentation is correct.
+Do my variable names make sense?
+Mark out of 4: 4
+Comments: Yes, my variable names make sense.
+Do my variable names, method names and class name follow the Java coding standard
+Mark out of 4: 4
+Comments: Yes, my variable names, method names and class name follow the Java coding standard.
+      Total Mark out of 100 (Add all the previous marks):
+ */
+public class SOE{
+
+	public static boolean[] createSequence(int n){
+		return new boolean[n];
+	}
+
+	public static boolean crossOutHigherMultiples(boolean[] sequence, int n){
+		boolean crossed = false;
+		for(int multiplier=n+1; multiplier*(n +1) - 1 < sequence.length; multiplier++){
+			sequence[multiplier*(n + 1) - 1] = true;
+			crossed = true;
+		}
+		return crossed;
+	}
+
+	public static boolean[] sieve(int n){
+		boolean[] erathosteneSieve = createSequence(n);
+		erathosteneSieve[0] = true;
+		System.out.println(sequenceToString(erathosteneSieve));
+		for(int i=0; i < erathosteneSieve.length; i++){
+			if(!erathosteneSieve[i]){
+				if(crossOutHigherMultiples(erathosteneSieve,i)){
+					System.out.println(sequenceToString(erathosteneSieve));
+				}
+			}
+		}
+		return erathosteneSieve;
+	}
+
+	public static String sequenceToString(boolean[] sequence){
+		StringBuilder sequenceToStringBuilder = new StringBuilder();
+
+		for(int i=1; i < sequence.length; i++){
+			if(!sequence[i]){
+				sequenceToStringBuilder.append(i+1);
+			}else{
+				sequenceToStringBuilder.append("[");
+				sequenceToStringBuilder.append(i+1);
+				sequenceToStringBuilder.append("]");
+			}
+			if(i < sequence.length - 1){
+				sequenceToStringBuilder.append(", ");
+			}
+		}
+
+		return sequenceToStringBuilder.toString();
+	}
+
+	public static String nonCrossedOutSubseqToString(boolean[] sequence){
+		StringBuilder sequenceToStringBuilder = new StringBuilder();
+
+		for(int i=1; i < sequence.length; i++){
+			if(!sequence[i]){
+				sequenceToStringBuilder.append(i+1);
+				if(i < sequence.length - 1){
+					sequenceToStringBuilder.append(", ");
+				}
+			}
+		}
+		sequenceToStringBuilder.setLength(sequenceToStringBuilder.length() - 2);
+		return sequenceToStringBuilder.toString();
+	}
+	public static void main(String[] args){
+		boolean[] sieveOfErathostene = sieve(30);
+		System.out.println(nonCrossedOutSubseqToString(sieveOfErathostene));
+
+	}
+}
